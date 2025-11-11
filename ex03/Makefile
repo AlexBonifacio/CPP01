@@ -1,10 +1,11 @@
 
 CXX = c++
-CXXFLAGS = -Werror -Wextra -Wall -pedantic -std=c++98
+CXXFLAGS = -Werror -Wextra -Wall -pedantic -std=c++98 -MMD -MP
 
 SRCS = main.cpp Weapon.cpp HumanA.cpp HumanB.cpp
 OBJ_DIR = obj
 OBJS = $(patsubst %.cpp, obj/%.o, $(SRCS))
+DEP = $(OBJS:.o=.d)
 
 NAME = uv
 
@@ -28,3 +29,5 @@ fclean : clean
 re : fclean all
 
 .PHONY: all clean fclean re
+
+-include $(DEP)
