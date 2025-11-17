@@ -2,38 +2,32 @@
 CXX = c++
 CXXFLAGS = -Wall -Werror -Wextra -std=c++98 -pedantic -MMD -MP
 
-SRCS = main.cpp SedReplacer.cpp
 OBJ_DIR = obj
+SRCS = main.cpp Harl.cpp
 OBJS = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(SRCS))
-DEP = $(OBJS:.o=.d)
+DEP = $(OBJS:%.o=%.d)
 
-NAME = sed
+NAME = Harl
 
-all: $(NAME)
+all : $(NAME)
 
 $(NAME) : $(OBJS) Makefile
 	$(CXX) $(OBJS) -o $(NAME)
 
 $(OBJ_DIR) :
-	mkdir -p $(OBJ_DIR)
+	mkdir -p obj
 
 $(OBJ_DIR)/%.o : %.cpp | $(OBJ_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-clean :
-	rm -rf $(OBJ_DIR)
+clean : 
+	rm -f $(NAME)
 
 fclean : clean
-	rm -f $(NAME)
+	rm -rf $(OBJ_DIR)
 
 re : fclean all
 
 .PHONY : all clean fclean re
-
-replace :
-	rm -f *.replace
-
-tidy:
-	clang-tidy $(SRCS) -- -I. -std=c++98
 
 -include $(DEP)
