@@ -30,8 +30,8 @@ re : fclean all
 
 .PHONY : all clean fclean re
 
-replace :
-	rm -f *.replace
+# replace :
+# 	rm -f *.replace
 
 tidy:
 	clang-tidy $(SRCS) -- -I. -std=c++98
